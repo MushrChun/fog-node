@@ -1,5 +1,6 @@
-package au.edu.sydney.uni.fogcomputing.fognode;
+package au.edu.sydney.uni.fogcomputing.fognode.controller;
 
+import au.edu.sydney.uni.fogcomputing.fognode.service.QueueService;
 import org.apache.http.HttpEntity;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -12,17 +13,21 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
+
+/**
+ * This controller is for mimic 3 tiers structure
+ */
 @RestController
 public class HandlerController {
 
     @Autowired
-    QueueService queueService;
+    private QueueService queueService;
 
     private static String url = "http://54.252.194.114:8080/handler";
     private CloseableHttpClient httpClient = HttpClients.createDefault();
 
     @RequestMapping("/handler")
-    String handler() {
+    public String handler() {
         try {
             Thread.sleep(100);
         } catch (InterruptedException e) {
