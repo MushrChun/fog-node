@@ -13,8 +13,9 @@ public class CommandService {
     private ProcessBuilder builder = new ProcessBuilder();
 
 
+    private String content;
 
-    public boolean execute(){
+    public String execute(){
         builder.command("sh", "-c", "ls -la");
         builder.directory(new File(System.getProperty("user.home")));
         Process process = null;
@@ -30,7 +31,7 @@ public class CommandService {
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return true;
+        return "true";
     }
 
 

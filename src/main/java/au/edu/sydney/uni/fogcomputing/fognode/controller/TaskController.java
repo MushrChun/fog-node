@@ -1,5 +1,6 @@
 package au.edu.sydney.uni.fogcomputing.fognode.controller;
 
+import au.edu.sydney.uni.fogcomputing.fognode.service.CommandService;
 import au.edu.sydney.uni.fogcomputing.fognode.service.QueueService;
 import au.edu.sydney.uni.fogcomputing.fognode.service.TempFileService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,15 +19,20 @@ public class TaskController {
     @Autowired
     private TempFileService tempFileService;
 
+    @Autowired
+    private CommandService commandService;
+
 
     @PostMapping("/task")
     public String doTask(@RequestParam("file") MultipartFile file) {
-        System.out.println(file.getSize());
         try {
             TempFileService.Message message = tempFileService.storeTmpFile(file.getInputStream());
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return "Get task";
+        queueService.pushTask();
+        String result =  commandService.execute();
+        queueService.popTask();
+        return result;
     }
 }

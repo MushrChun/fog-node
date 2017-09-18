@@ -23,15 +23,19 @@ public class TempFileService {
     public Message storeTmpFile(InputStream inputStream){
 
         UUID uuid = UUID.randomUUID();
-        String tmpFileName = uuid.toString();
-        File tmpFile = new File(basePath + File.separator + tmpFileName);
+        String uuidStr = uuid.toString();
+        String tmpDirStr = basePath + File.separator + uuidStr;
+        File tmpDir = new File(tmpDirStr);
+        tmpDir.mkdir();
+        String tmpFileStr = tmpDirStr + File.separator + "input";
+        File tmpFile = new File(tmpFileStr);
         try {
             FileUtils.copyInputStreamToFile(inputStream, tmpFile);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-        Message message = new Message(true, tmpFileName);
+        Message message = new Message(true, tmpDirStr);
 
         return message;
     }
