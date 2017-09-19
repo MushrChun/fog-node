@@ -16,7 +16,7 @@ public class CommandService {
     private String content;
 
     public String execute(){
-        builder.command("sh", "-c", "ls -la");
+        builder.command("/home/cshe6391/Tools/spark-2.2.0-bin-hadoop2.7/bin/spark-submit", "--master", "spark://pc-4e55-0.it.usyd.edu.au:7077", "/home/cshe6391/Repo-4E55/fognode/kmeans_example.py");
         builder.directory(new File(System.getProperty("user.home")));
         Process process = null;
         try {
