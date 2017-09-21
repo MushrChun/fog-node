@@ -5,6 +5,15 @@ implemented with Spring Web Server
 ### IDE
 IntelliJ IDEA Community 2017
 
+### Preparation
+create a folder called fog-space under home folder
+copy kmeans_example.py script to newly created folder
+
+
+### Start
+mvn spring-boot:run
+
+
 ### Configurations
 some configurations require attention as follows
 
@@ -13,3 +22,4 @@ some configurations require attention as follows
 
 #### application.properties
     server.port=8090
+    
