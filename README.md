@@ -6,8 +6,9 @@ implemented with Spring Web Server
 IntelliJ IDEA Community 2017
 
 ### Preparation
-create a folder called fog-space under home folder
-copy kmeans_example.py script to newly created folder
+1. create a folder called fog-space under home folder
+
+2. copy kmeans_example.py script to newly created folder
 
 
 ### Start
