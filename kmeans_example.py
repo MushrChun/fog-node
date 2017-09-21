@@ -23,6 +23,8 @@ from pyspark.ml.clustering import KMeans
 
 from pyspark.sql import SparkSession
 
+import sys
+
 """
 An example demonstrating k-means clustering.
 Run with:
@@ -37,9 +39,12 @@ if __name__ == "__main__":
         .appName("KMeansExample")\
         .getOrCreate()
 
+    inputFile = sys.argv[1]
+    outputFile = sys.argv[2]
+
     # $example on$
     # Loads data.
-    dataset = spark.read.format("libsvm").load("/home/cshe6391/Repo-4E55/fognode/kmeans_data.txt")
+    dataset = spark.read.format("libsvm").load(inputFile)
 
     # Trains a k-means model.
     kmeans = KMeans().setK(2).setSeed(1)
@@ -52,8 +57,13 @@ if __name__ == "__main__":
     # Shows the result.
     centers = model.clusterCenters()
     print("Cluster Centers: ")
+    outputContent = "Cluster Centers: "
     for center in centers:
         print(center)
+        outputContent += str(center) + '\n'
+        # outputContent.join(tmp)
+    with open(outputFile, "w") as text_file:
+        text_file.write(outputContent)
     # $example off$
 
     spark.stop()

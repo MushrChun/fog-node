@@ -11,7 +11,8 @@ import java.util.UUID;
 @Service("TempFile")
 public class TempFileService {
 
-    public final static  String basePath = "temp";
+
+    public final static  String basePath = System.getProperty("user.home") + File.separator + "fog-space" + File.separator + "temp";
 
     public TempFileService(){
         File dir = new File(basePath);
@@ -42,11 +43,11 @@ public class TempFileService {
 
     public class Message{
         public boolean status;
-        public String fileName;
+        public String dirStr;
 
-        public Message(boolean status, String fileName){
+        public Message(boolean status, String dirStr){
             this.status = status;
-            this.fileName = fileName;
+            this.dirStr = dirStr;
         }
     }
 }

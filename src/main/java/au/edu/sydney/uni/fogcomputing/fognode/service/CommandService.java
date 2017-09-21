@@ -15,9 +15,15 @@ public class CommandService {
 
     private String content;
 
-    public String execute(){
-        builder.command("/home/cshe6391/Tools/spark-2.2.0-bin-hadoop2.7/bin/spark-submit", "--master", "spark://pc-4e55-0.it.usyd.edu.au:7077", "/home/cshe6391/Repo-4E55/fognode/kmeans_example.py");
-        builder.directory(new File(System.getProperty("user.home")));
+    public int execute(String inputFile, String outputFile){
+        System.out.println("start execute command!");
+        builder.command("/home/cshe6391/Tools/spark-2.2.0-bin-hadoop2.7/bin/spark-submit",
+                "--master",
+                "spark://pc-4e55-0.it.usyd.edu.au:7077",
+                "/home/cshe6391/fog-space/kmeans_example.py",
+                inputFile,
+                outputFile);
+        builder.directory(new File(System.getProperty("user.home") + File.separator + "fog-space"));
         Process process = null;
         try {
             process = builder.start();
@@ -26,12 +32,17 @@ public class CommandService {
         }
         MyStream myStream = new MyStream(process.getInputStream(), System.out::println);
         Executors.newSingleThreadExecutor().submit(myStream);
+
+        int exitCode = 1;
         try {
-            int exitCode = process.waitFor();
+            exitCode = process.waitFor();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
-        return "true";
+
+        System.out.println("finish execute command!");
+
+        return exitCode;
     }
 
 
